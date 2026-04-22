@@ -1,0 +1,10 @@
+{
+  "week_label": "Week of April 15, 2026",
+  "turns": [
+    {"speaker": "interviewer", "text": "Welcome to AI and Insurance Weekly, covering the week of April fifteenth. We are tracking two big stories today: a new frontier model and a claims pilot at a major US carrier."},
+    {"speaker": "amtrust", "text": "Right. The headline on the model side is Anthropic's Claude Opus 4.7, which extends effective context and reports better tool-use reliability in its model card."},
+    {"speaker": "interviewer", "text": "And on the insurance side?"},
+    {"speaker": "amtrust", "text": "Progressive is piloting AI-driven first-notice-of-loss triage. The aim is to route complex losses faster while keeping humans in the decision loop."},
+    {"speaker": "interviewer", "text": "That is all for this week. See you next Friday."}
+  ]
+}

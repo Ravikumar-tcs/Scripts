@@ -1,0 +1,50 @@
+name: Generate weekly episode
+
+on:
+  schedule:
+    - cron: '0 23 * * 4'     # Thu 23:00 UTC = 18:00 EST (19:00 EDT)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: Install Python deps
+        run: pip install -r requirements.txt
+
+      - name: Run unit tests
+        run: pytest -q
+
+      - name: Generate episode
+        run: python -m podcast generate
+        env:
+          ANTHROPIC_API_KEY:   ${{ secrets.ANTHROPIC_API_KEY }}
+          ELEVENLABS_API_KEY:  ${{ secrets.ELEVENLABS_API_KEY }}
+          SMTP_USER:           ${{ secrets.SMTP_USER }}
+          SMTP_APP_PASSWORD:   ${{ secrets.SMTP_APP_PASSWORD }}
+          REVIEWER_EMAIL:      ${{ secrets.REVIEWER_EMAIL }}
+          GH_TOKEN:            ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload episode audio as workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: episode-audio
+          path: episodes/**/episode.mp3
+          if-no-files-found: error
+          retention-days: 14
