@@ -1,0 +1,52 @@
+{
+  "new_ai_implementations": [
+    {
+      "headline": "Acme Corp ships GenAI-powered customer-support copilot",
+      "one_line_summary": "Acme rolled out an internal copilot that summarizes tickets and drafts replies for support agents.",
+      "source_url": "https://example.com/acme-copilot",
+      "source_title": "Acme Engineering Blog",
+      "published_at": "2026-04-18"
+    },
+    {
+      "headline": "Widget.ai launches autonomous research agent for legal teams",
+      "one_line_summary": "Widget.ai released an agent that drafts case summaries and citations from uploaded briefs.",
+      "source_url": "https://example.com/widget-legal",
+      "source_title": "TechCrunch",
+      "published_at": "2026-04-16"
+    }
+  ],
+  "new_or_updated_llms": [
+    {
+      "headline": "Anthropic releases Claude Opus 4.7 with longer context",
+      "one_line_summary": "Opus 4.7 extends effective context and improves tool-use reliability, per the model card.",
+      "source_url": "https://example.com/claude-4-7",
+      "source_title": "Anthropic",
+      "published_at": "2026-04-17"
+    }
+  ],
+  "us_insurer_ai": [
+    {
+      "headline": "Progressive pilots AI-driven first-notice-of-loss triage",
+      "one_line_summary": "Progressive announced a pilot using LLMs to triage claim intake calls and route complex losses.",
+      "source_url": "https://example.com/progressive-fnol",
+      "source_title": "Insurance Journal",
+      "published_at": "2026-04-19"
+    },
+    {
+      "headline": "Lemonade extends GenAI underwriting to small-commercial lines",
+      "one_line_summary": "Lemonade said its AI underwriter now prices small-commercial policies in select states.",
+      "source_url": "https://example.com/lemonade-sc",
+      "source_title": "Reuters",
+      "published_at": "2026-04-15"
+    }
+  ],
+  "global_insurer_ai": [
+    {
+      "headline": "Allianz partners with local vendor on fraud-detection AI in Germany",
+      "one_line_summary": "Allianz announced a partnership to deploy AI-based fraud detection across motor claims in Germany.",
+      "source_url": "https://example.com/allianz-fraud",
+      "source_title": "Reinsurance News",
+      "published_at": "2026-04-16"
+    }
+  ]
+}

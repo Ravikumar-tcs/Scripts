@@ -1,0 +1,4 @@
+# Recipients for the Friday episode email.
+# If this list is empty, the sender falls back to SMTP_USER (your own gmail)
+# so you always receive your own episode. Add more addresses here as you expand.
+recipients: []

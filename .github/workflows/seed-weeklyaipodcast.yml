@@ -1,0 +1,67 @@
+name: Seed WeeklyAIPodCast
+
+# One-time workflow: copies the contents of weekly-ai-podcast/ from this repo
+# into ravikumar-tcs/WeeklyAIPodCast as the initial commit on `main`.
+#
+# Run this from the Actions tab ("Run workflow") on branch
+# claude/weekly-ai-podcast-zdaRm. After it succeeds, delete the SEED_PAT secret
+# and this workflow file.
+
+on:
+  workflow_dispatch:
+    inputs:
+      force_push:
+        description: "Force-push to main (safe for an empty target repo)"
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+jobs:
+  seed:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source branch
+        uses: actions/checkout@v4
+
+      - name: Verify SEED_PAT secret is set
+        run: |
+          if [ -z "${{ secrets.SEED_PAT }}" ]; then
+            echo "::error::SEED_PAT secret is not set. Create a fine-grained PAT with Contents: Read and Write on ravikumar-tcs/WeeklyAIPodCast and add it as secret SEED_PAT in this repo."
+            exit 1
+          fi
+
+      - name: Push weekly-ai-podcast/ contents to WeeklyAIPodCast
+        env:
+          SEED_PAT: ${{ secrets.SEED_PAT }}
+          FORCE: ${{ inputs.force_push }}
+        run: |
+          set -euo pipefail
+          cd weekly-ai-podcast
+
+          git init -b main -q
+          git -c user.email="actions@github.com" \
+              -c user.name="github-actions[bot]" \
+              -c commit.gpgsign=false \
+              add -A
+          git -c user.email="actions@github.com" \
+              -c user.name="github-actions[bot]" \
+              -c commit.gpgsign=false \
+              commit -q -m "Initial import: weekly AI & insurance podcast pipeline"
+
+          git remote add origin "https://x-access-token:${SEED_PAT}@github.com/ravikumar-tcs/WeeklyAIPodCast.git"
+
+          if [ "$FORCE" = "true" ]; then
+            git push --force origin main
+          else
+            git push origin main
+          fi
+
+      - name: Summary
+        run: |
+          echo "### Seed complete :rocket:" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "Contents pushed to https://github.com/ravikumar-tcs/WeeklyAIPodCast" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Next:** delete the \`SEED_PAT\` secret from this repo and revoke the PAT at https://github.com/settings/tokens. Then delete this workflow file." >> "$GITHUB_STEP_SUMMARY"
